@@ -1,4 +1,4 @@
-binarypath="$(pwd)/build/ytdl-frontend"
+binarypath="$(pwd)/build/youtubedl-gui"
 
 echo "Installing youtubedl-gui in ~/bin..."
 

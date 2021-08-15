@@ -14,7 +14,7 @@
     "bridge": "src",
     "serve": "npm run serve"
   },
-  "tags": ["youtube", "youtube-dl", "desktop", "gui"],
+  "tags": "",
   "WailsVersion": "",
   "CrossCompile": false,
   "Platform": "",
@@ -23,4 +23,3 @@
   "GoPath": "",
   "UseFirebug": false
 }
-
