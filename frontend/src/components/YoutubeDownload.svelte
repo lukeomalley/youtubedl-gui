@@ -1,13 +1,16 @@
 <script>
   import Spinner from "svelte-spinner";
-  let url = "";
   let downloading = false;
+
+  // Form
+  let format = 0;
+  let url = "";
 
   async function download() {
     downloading = true;
 
     try {
-      await backend.Downloader.DownloadFromYoutube(url);
+      await backend.Downloader.DownloadFromYoutube(url, format);
       downloading = false;
       url = "";
     } catch (err) {
@@ -19,8 +22,17 @@
 
 <main>
   <div class="input-wrapper">
-    <label for="url">Paste Youtube Url Here: </label>
-    <input id="url" type="text" bind:value={url} disabled={downloading} />
+    <input
+      id="url"
+      type="text"
+      bind:value={url}
+      disabled={downloading}
+      placeholder="Paste youtube url here..."
+    />
+    <select bind:value={format}>
+      <option value={0}>Audio Only</option>
+      <option value={1}>Video and Audio</option>
+    </select>
   </div>
 
   <div style="margin-bottom: 1rem;" />
@@ -38,36 +50,48 @@
 <style>
   .input-wrapper {
     display: flex;
-    flex-direction: column;
-  }
-
-  label {
-    margin-bottom: 1rem;
+    gap: 1rem;
   }
 
   input {
-    background: #ffffff50;
+    background: #ffffff30;
+    padding: 0 1rem;
+    width: 500px;
     height: 3rem;
     border: none;
     color: #ffffff;
-    font-size: 2rem;
+    font-size: 1rem;
+  }
+
+  select {
+    padding: 0 1rem;
+    background: #ffffff30;
+    border: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+
+  select:focus {
+    outline: none;
+    background: #ffffff50;
   }
 
   input:focus {
     outline: none;
+    background: #ffffff50;
   }
 
   button {
-    background: #ffffff50;
+    background: #ffffff30;
     padding: 1rem;
     color: white;
     border: none;
-
     transition: all 0.3s;
   }
 
   button:focus {
     outline: none;
+    background: #ffffff50;
   }
 
   button:hover {
