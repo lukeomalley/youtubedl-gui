@@ -2,7 +2,7 @@
 
 Simple gui for the `youtube-dl` tool used to download videos directly from youtube. Currently only supports downloading
 
-![Screenshot](./docs/youtube-dl-screen.png)
+![Screenshot](./docs/youtube-gui.png)
 
 ## Tech
 
