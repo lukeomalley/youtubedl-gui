@@ -1,25 +1,26 @@
 {
- "name": "ytdl-frontend",
- "description": "Enter your project description",
- "author": {
-  "name": "lukeomalley",
-  "email": "luke@lukeomalley.xyz"
- },
- "version": "0.1.0",
- "binaryname": "ytdl-frontend",
- "frontend": {
-  "dir": "frontend",
-  "install": "npm install",
-  "build": "npm run build",
-  "bridge": "src",
-  "serve": "npm run serve"
- },
- "tags": "",
- "WailsVersion": "",
- "CrossCompile": false,
- "Platform": "",
- "Architecture": "",
- "LdFlags": "",
- "GoPath": "",
- "UseFirebug": false
+  "name": "youtubedl-gui",
+  "description": "Minimal desktop gui for youtube-dl",
+  "author": {
+    "name": "lukeomalley",
+    "email": "luke@lukeomalley.xyz"
+  },
+  "version": "0.1.0",
+  "binaryname": "youtubedl-gui",
+  "frontend": {
+    "dir": "frontend",
+    "install": "npm install",
+    "build": "npm run build",
+    "bridge": "src",
+    "serve": "npm run serve"
+  },
+  "tags": ["youtube", "youtube-dl", "desktop", "gui"],
+  "WailsVersion": "",
+  "CrossCompile": false,
+  "Platform": "",
+  "Architecture": "",
+  "LdFlags": "",
+  "GoPath": "",
+  "UseFirebug": false
 }
+

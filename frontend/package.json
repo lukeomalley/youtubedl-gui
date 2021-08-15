@@ -1,5 +1,5 @@
 {
-  "name": "ytdl-frontend",
+  "name": "youtubedl-gui",
   "author": "lukeomalley<luke@lukeomalley.xyz>",
   "scripts": {
     "build": "rollup -c",
