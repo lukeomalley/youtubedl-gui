@@ -1,16 +1,22 @@
 <script>
+  import { onMount } from "svelte";
   import Spinner from "svelte-spinner";
-  let downloading = false;
 
-  // Form
+  let homeDirs = [];
+  let downloading = false;
   let format = 0;
+  let dir = "yt";
   let url = "";
+
+  onMount(async () => {
+    homeDirs = await backend.Downloader.ListHomeDirectories();
+  });
 
   async function download() {
     downloading = true;
 
     try {
-      await backend.Downloader.DownloadFromYoutube(url, format);
+      await backend.Downloader.DownloadFromYoutube(url, format, dir);
       downloading = false;
       url = "";
     } catch (err) {
@@ -33,13 +39,21 @@
       <option value={0}>Audio Only</option>
       <option value={1}>Video and Audio</option>
     </select>
+
+    <select bind:value={dir}>
+      {#each homeDirs as dir}
+        <option value={dir}>{dir}</option>
+      {/each}
+    </select>
   </div>
 
   <div style="margin-bottom: 1rem;" />
 
-  <button disabled={!url.length || downloading} on:click={download}>
-    Download from Youtube
-  </button>
+  <div class="button-wrapper">
+    <button disabled={!url.length || downloading} on:click={download}>
+      Download from Youtube
+    </button>
+  </div>
 
   {#if downloading}
     <div style="margin-bottom: 1rem;" />

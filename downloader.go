@@ -1,7 +1,11 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
+	"log"
 	"os/exec"
+	"os/user"
 )
 
 type DownloadFormat int
@@ -17,16 +21,18 @@ func NewDownloader() *Downloader {
 	return &Downloader{}
 }
 
-func (d *Downloader) DownloadFromYoutube(url string, format DownloadFormat) int {
+func (d *Downloader) DownloadFromYoutube(url string, format DownloadFormat, dir string) int {
+	directory := fmt.Sprintf("%s/%s/%%(title)s.%%(ext)s", d.userHomeDir(), dir)
 
 	var cmd *exec.Cmd
+
 	switch format {
 	case AUDIO_ONLY:
-		cmd = exec.Command("youtube-dl", "-x", "-f", "bestaudio", "-o", "/home/luke/yt/%(title)s.%(ext)s", url)
+		cmd = exec.Command("youtube-dl", "-x", "-f", "bestaudio", "-o", directory, url)
 	case VIDEO_AND_AUDIO:
-		cmd = exec.Command("youtube-dl", "-f", "bestvideo+bestaudio", "-o", "/home/luke/yt/%(title)s.%(ext)s", url)
+		cmd = exec.Command("youtube-dl", "-f", "bestvideo+bestaudio", "-o", directory, url)
 	default:
-		cmd = exec.Command("youtube-dl", "-x", "-f", "bestaudio", "-o", "/home/luke/yt/%(title)s.%(ext)s", url)
+		cmd = exec.Command("youtube-dl", "-x", "-f", "bestaudio", "-o", directory, url)
 	}
 
 	err := cmd.Run()
@@ -35,4 +41,36 @@ func (d *Downloader) DownloadFromYoutube(url string, format DownloadFormat) int 
 	}
 
 	return 0
+}
+
+func (d *Downloader) ListHomeDirectories() []string {
+	user, err := user.Current()
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+
+	files, err := ioutil.ReadDir(user.HomeDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var dirs []string
+	for _, f := range files {
+		if string(f.Name()[0]) == "." || !f.IsDir() {
+			continue
+		}
+
+		dirs = append(dirs, string(f.Name()))
+	}
+
+	return dirs
+}
+
+func (d *Downloader) userHomeDir() string {
+	user, err := user.Current()
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+
+	return user.HomeDir
 }

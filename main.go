@@ -5,10 +5,6 @@ import (
 	"github.com/wailsapp/wails"
 )
 
-func basic() string {
-	return "World!"
-}
-
 //go:embed frontend/public/build/bundle.js
 var js string
 
@@ -27,7 +23,6 @@ func main() {
 		Resizable: true,
 	})
 
-	app.Bind(basic)
 	app.Bind(NewDownloader())
 	app.Run()
 }
